@@ -1,6 +1,5 @@
 package piano_keyboard;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +11,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
@@ -26,29 +24,23 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
 
 
 
 /**
  * @author Kiran K 
  */
+
 public class piano_GUI {
+	
 	int height,width;
 	int menu_height=50;
 	int key_width=20;
@@ -56,7 +48,7 @@ public class piano_GUI {
 	boolean still_playing=false;
 	private static int OBOE = 01;//00-99 tune selector
 	private int start_tone=60; // gives the starting value for sound
-	List<String> keys_names=Arrays.asList("A","W","S","E","D","F","T","G","Y","H","U","J","K","O","L","P",";","\'","}");
+	List<String> keys_names=Arrays.asList("A","W","S","E","D","F","T","G","Y","H","U","J","K","O","L","P",";","\'","]");
 	List<Integer> tone_values=new ArrayList<Integer>();
 	List<Integer> key_event_values=new ArrayList<Integer>();
 	
@@ -72,7 +64,7 @@ public class piano_GUI {
 		height=400;
 		width=840;
 		main_frame.setLayout(new GridBagLayout());
-		main_frame.setLocation(100,300) ;
+		main_frame.setLocation(100,400) ;// position of GUI
 	    GridBagConstraints c = new GridBagConstraints();
 	    c.gridx=0;
 	    c.gridy=0;
@@ -97,16 +89,13 @@ public class piano_GUI {
 		sub_frame1.add(tune_select(width,menu_height));
 		sub_frame1.setBorder(BorderFactory.createLineBorder(Color.black));
 		sub_frame2.setPreferredSize(new Dimension(width,height/2));
-		sub_frame2=create_piano(sub_frame2,width,height/2);
-		
+		sub_frame2=create_piano(sub_frame2,width,height/2);		
 		main_frame.add(sub_frame1,c);
 		c.gridy=1;
 		sub_frame2.setFocusable(true);
 		sub_frame2.requestFocusInWindow();		
 		main_frame.add(sub_frame2,c);		
-		main_frame.setVisible(true);
-        //main_frame.requestFocusInWindow();
-     //   main_frame.setFocusableWindowState(true);
+		main_frame.setVisible(true);       
 		main_frame.pack();
 		
 	}
@@ -252,29 +241,15 @@ public class piano_GUI {
 	        public void actionPerformed(ActionEvent e) {
 	        	int index=keys_names.indexOf(e.getActionCommand().toUpperCase());
 	            if(index>=0)
-	            {
-	    
-	            	jButton.setEnabled(false);
-	            	myplay(tone_values.get(index));
-	            	//jButton.setEnabled(true);
-	            	try {
-						Thread.sleep(1);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-	            	//jButton.setEnabled(true);
-	            	//.setSelected(true);
-	        		//jButton.setBackground(Color.white);
-	        	    jButton.setEnabled(true);
-
+	            {	            	
+	            	jButton.doClick();
+	            //	myplay(tone_values.get(index));	            	
 	            }
 	           
 	        }
 	    };
 		return buttonPressed;
 	}
-
 	
 	public JPanel four_keys(int w,int h,int value)
 	{
@@ -491,8 +466,6 @@ public class piano_GUI {
         return channel;
     }
 
-  
-   
     public void myplay(int x)
     {
     	if(still_playing)
