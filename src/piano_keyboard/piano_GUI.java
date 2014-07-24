@@ -45,6 +45,9 @@ import javax.swing.text.MaskFormatter;
 
 
 
+/**
+ * @author Kiran K 
+ */
 public class piano_GUI {
 	int height,width;
 	int menu_height=50;
