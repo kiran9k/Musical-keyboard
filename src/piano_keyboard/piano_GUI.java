@@ -72,7 +72,7 @@ public class piano_GUI {
 		height=400;
 		width=840;
 		main_frame.setLayout(new GridBagLayout());
-		main_frame.setLocation(100,700) ;
+		main_frame.setLocation(100,300) ;
 	    GridBagConstraints c = new GridBagConstraints();
 	    c.gridx=0;
 	    c.gridy=0;
